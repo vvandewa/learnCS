@@ -1,0 +1,117 @@
+---
+title: 'Classification supervisée : MANOVA'
+author: "Vincent Vandewalle"
+output: learnr::tutorial
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+library(gradethis)
+
+tutorial_options(exercise.timelimit = 60, exercise.checker = gradethis::grade_learnr)
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+
+
+# Reprise des exemples du cours
+
+Lancer les commandes suivantes pour retrouver les résultats des exercices de la première séance de cours.
+
+
+## Test du Chi-deux
+
+```{r chi2}
+V3V1<-matrix(c(30,20,30,20,10,15,10,15),4,2,byrow=TRUE)
+V3V1
+chi2 = chisq.test(V3V1)
+str(chi2)
+chi2
+1-pchisq(5.3571,3) 
+# ou en utilisant directement l'option
+pchisq(5.3571, df = 3, lower.tail = FALSE)
+sum(chi2$residuals^2)
+```
+
+```{r ref.label="chi2", include=TRUE}
+
+```
+
+
+
+1. Commenter code et résultats : ici on réalise un test du Chi-deux d'indépendance, on ne rejetterai pas l'hypothèse d'indépendance au risque $\alpha = 0,05$.
+
+Vous pouvez aussi explorer plus en détail l'objet `chi2` :  question supplémentaire comment afficher les effectifs attendus sous l'hypothèse d'indépendance ? 
+
+```{r expected, exercise = TRUE, exercise.setup = "chi2", exercise.eval = TRUE}
+str(chi2)
+```
+
+
+
+```{r expected-hint-1}
+"Indice : comment dit-on attendu en anglais ???"
+```
+
+
+
+```{r expected-solution}
+chi2$expected
+```
+
+```{r expected-check}
+grade_code()
+```
+
+
+
+
+## Test de Fisher
+
+```{r fisher, include=FALSE}
+x <- c(4,5,7,8,9,2,3,4,6,7,8)
+y <- c(rep(0,5),rep(1,6))
+cbind(x,y)
+lm(x~factor(y))
+factor(y)
+anova(lm(x~y))
+SCF <- (mean(x[1:5])-mean(x))^2*5+(mean(x[6:11])-mean(x))^2*6
+SCR <- sum(c((x[1:5]-mean(x[1:5]))^2,(x[6:11]-mean(x[6:11]))^2))
+Fstat <- (SCF/1)/(SCR/9)
+pval <- pf(Fstat,1,9,lower.tail=FALSE)
+pval
+Rsq <- SCF/(SCF+SCR)
+Rsq
+c(SCF,SCR,Fstat,pval,Rsq)
+summary(lm(x~y))$r.squared
+```
+
+
+
+
+
+Libre à vous de faire des tests pour mieux appréhender les objets manipulés  : 
+```{r fisher2, exercise = TRUE, exercise.setup = "fisher"}
+
+```
+
+2. Commenter code et résultats : Ici on a réalisé un test de l'ANOVA, sous $H_0$ la statistique de test suit une loi de Fisher a $K-1$, $n-K$ degré de liberté, avec $K$ le nombre de classes et $n$ le nombre de données. Ici la probabilité critique est de $0,2686$ donc la variable $y$ n'a pas d'effet significatif sur la variable $x$ au risque $\alpha = 0,05$. 
+
+**Attention** : en classification supervisée on veut prédire $y$ à partir de $x$ ! Mais le fait que la variance de $x$  soit bien expliquée par $y$ nous donne un bon indicateur du pouvoir prédictif $x$ sur $y$.
+
+Questions supplémentaires :
+
+```{r where-am-i, echo=FALSE}
+question("Pour le test de l'ANOVA :",
+  answer("La variable $X$ est supposée suivre une loi normale", message = "Non, on ne suppose pas la normalité globale de X."),
+  answer("La variable $X$ est supposée suivre une loi normale dans chacune des classes", correct = TRUE),
+  answer("Le test suppose l'homogénéité des variances intraclasses", correct = TRUE),
+  answer("Permet de tester l'égalité des variance intra-classes", message = "Cela fait partie des hypothèses du test, par contre le test de Bartlett permet de tester cela."),
+  answer("Permet de tester l'égalité des espérances conditionnelles", correct = TRUE),
+  answer("Permet de tester l'égalité des moyennes conditionnelles", message = "Le test porte sur les quantités **non observée** qui sont les espérances conditionnelles. En pratique les moyennes conditionnelles sont rarement égales ...")
+)
+```
+
+
+
