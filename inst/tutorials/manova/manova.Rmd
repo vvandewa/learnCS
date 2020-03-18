@@ -22,20 +22,21 @@ Lancer les commandes suivantes pour retrouver les résultats des exercices de la
 
 ## Test du Chi-deux
 
-```{r chi2}
+```{r chi2demoprint, include=TRUE, echo = TRUE}
 V3V1<-matrix(c(30,20,30,20,10,15,10,15),4,2,byrow=TRUE)
 V3V1
 chi2 = chisq.test(V3V1)
 str(chi2)
 chi2
 1-pchisq(5.3571,3) 
-# ou en utilisant directement l'option
+# ou en utilisant directement l'option lower.tail
 pchisq(5.3571, df = 3, lower.tail = FALSE)
 sum(chi2$residuals^2)
 ```
 
-```{r ref.label="chi2", include=TRUE}
-
+```{r chi2setup}
+V3V1 = matrix(c(30,20,30,20,10,15,10,15),4,2,byrow=TRUE)
+chi2 = chisq.test(V3V1)
 ```
 
 
@@ -44,8 +45,8 @@ sum(chi2$residuals^2)
 
 Vous pouvez aussi explorer plus en détail l'objet `chi2` :  question supplémentaire comment afficher les effectifs attendus sous l'hypothèse d'indépendance ? 
 
-```{r expected, exercise = TRUE, exercise.setup = "chi2", exercise.eval = TRUE}
-str(chi2)
+```{r expected, exercise = TRUE, exercise.setup = "chi2setup", exercise.eval = TRUE}
+
 ```
 
 
@@ -67,7 +68,7 @@ grade_code()
 
 
 
-## Test de Fisher
+## Test de l'ANOVA
 
 ```{r fisher, include=FALSE}
 x <- c(4,5,7,8,9,2,3,4,6,7,8)

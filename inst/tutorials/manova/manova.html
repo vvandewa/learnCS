@@ -122,15 +122,14 @@ $(document).ready(function () {
 <p>Lancer les commandes suivantes pour retrouver les résultats des exercices de la première séance de cours.</p>
 <div id="section-test-du-chi-deux" class="section level2">
 <h2>Test du Chi-deux</h2>
-<div class="tutorial-exercise-support" data-label="chi2" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
-<pre class="text"><code>V3V1&lt;-matrix(c(30,20,30,20,10,15,10,15),4,2,byrow=TRUE)
+<pre class="r"><code>V3V1&lt;-matrix(c(30,20,30,20,10,15,10,15),4,2,byrow=TRUE)
 V3V1</code></pre>
 <pre><code>##      [,1] [,2]
 ## [1,]   30   20
 ## [2,]   30   20
 ## [3,]   10   15
 ## [4,]   10   15</code></pre>
-<pre class="text"><code>chi2 = chisq.test(V3V1)
+<pre class="r"><code>chi2 = chisq.test(V3V1)
 str(chi2)</code></pre>
 <pre><code>## List of 9
 ##  $ statistic: Named num 5.36
@@ -145,66 +144,29 @@ str(chi2)</code></pre>
 ##  $ residuals: num [1:4, 1:2] 0.645 0.645 -0.913 -0.913 -0.69 ...
 ##  $ stdres   : num [1:4, 1:2] 1.16 1.16 -1.46 -1.46 -1.16 ...
 ##  - attr(*, &quot;class&quot;)= chr &quot;htest&quot;</code></pre>
-<pre class="text"><code>chi2</code></pre>
+<pre class="r"><code>chi2</code></pre>
 <pre><code>## 
 ##  Pearson&#39;s Chi-squared test
 ## 
 ## data:  V3V1
 ## X-squared = 5.3571, df = 3, p-value = 0.1474</code></pre>
-<pre class="text"><code>1-pchisq(5.3571,3) </code></pre>
+<pre class="r"><code>1-pchisq(5.3571,3) </code></pre>
 <pre><code>## [1] 0.1474399</code></pre>
-<pre class="text"><code># ou en utilisant directement l&#39;option
+<pre class="r"><code># ou en utilisant directement l&#39;option lower.tail
 pchisq(5.3571, df = 3, lower.tail = FALSE)</code></pre>
 <pre><code>## [1] 0.1474399</code></pre>
-<pre class="text"><code>sum(chi2$residuals^2)</code></pre>
+<pre class="r"><code>sum(chi2$residuals^2)</code></pre>
 <pre><code>## [1] 5.357143</code></pre>
+<div class="tutorial-exercise-support" data-label="chi2setup" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>V3V1 = matrix(c(30,20,30,20,10,15,10,15),4,2,byrow=TRUE)
+chi2 = chisq.test(V3V1)</code></pre>
 </div>
-<pre><code>##      [,1] [,2]
-## [1,]   30   20
-## [2,]   30   20
-## [3,]   10   15
-## [4,]   10   15</code></pre>
-<pre><code>## List of 9
-##  $ statistic: Named num 5.36
-##   ..- attr(*, &quot;names&quot;)= chr &quot;X-squared&quot;
-##  $ parameter: Named int 3
-##   ..- attr(*, &quot;names&quot;)= chr &quot;df&quot;
-##  $ p.value  : num 0.147
-##  $ method   : chr &quot;Pearson&#39;s Chi-squared test&quot;
-##  $ data.name: chr &quot;V3V1&quot;
-##  $ observed : num [1:4, 1:2] 30 30 10 10 20 20 15 15
-##  $ expected : num [1:4, 1:2] 26.7 26.7 13.3 13.3 23.3 ...
-##  $ residuals: num [1:4, 1:2] 0.645 0.645 -0.913 -0.913 -0.69 ...
-##  $ stdres   : num [1:4, 1:2] 1.16 1.16 -1.46 -1.46 -1.16 ...
-##  - attr(*, &quot;class&quot;)= chr &quot;htest&quot;</code></pre>
-<pre><code>## 
-##  Pearson&#39;s Chi-squared test
-## 
-## data:  V3V1
-## X-squared = 5.3571, df = 3, p-value = 0.1474</code></pre>
-<pre><code>## [1] 0.1474399</code></pre>
-<pre><code>## [1] 0.1474399</code></pre>
-<pre><code>## [1] 5.357143</code></pre>
 <ol style="list-style-type: decimal">
 <li>Commenter code et résultats : ici on réalise un test du Chi-deux d’indépendance, on ne rejetterai pas l’hypothèse d’indépendance au risque <span class="math inline">\(\alpha = 0,05\)</span>.</li>
 </ol>
 <p>Vous pouvez aussi explorer plus en détail l’objet <code>chi2</code> : question supplémentaire comment afficher les effectifs attendus sous l’hypothèse d’indépendance ?</p>
 <div class="tutorial-exercise" data-label="expected" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
-<pre class="text"><code>str(chi2)</code></pre>
-<pre><code>List of 9
- $ statistic: Named num 5.36
-  ..- attr(*, &quot;names&quot;)= chr &quot;X-squared&quot;
- $ parameter: Named int 3
-  ..- attr(*, &quot;names&quot;)= chr &quot;df&quot;
- $ p.value  : num 0.147
- $ method   : chr &quot;Pearson&#39;s Chi-squared test&quot;
- $ data.name: chr &quot;V3V1&quot;
- $ observed : num [1:4, 1:2] 30 30 10 10 20 20 15 15
- $ expected : num [1:4, 1:2] 26.7 26.7 13.3 13.3 23.3 ...
- $ residuals: num [1:4, 1:2] 0.645 0.645 -0.913 -0.913 -0.69 ...
- $ stdres   : num [1:4, 1:2] 1.16 1.16 -1.46 -1.46 -1.16 ...
- - attr(*, &quot;class&quot;)= chr &quot;htest&quot;</code></pre>
-<script type="application/json" data-opts-chunk="1">{"fig.width":6.5,"fig.height":4,"fig.retina":2,"fig.align":"default","fig.keep":"high","fig.show":"asis","out.width":624,"warning":true,"error":false,"message":true,"exercise.df_print":"paged","exercise.timelimit":60,"exercise.setup":"chi2","exercise.checker":["function (label = NULL, solution_code = NULL, user_code = NULL, ","    check_code = NULL, envir_result = NULL, evaluate_result = NULL, ","    envir_prep = NULL, last_value = NULL, ...) ","{","    if (is.null(user_code)) {","        return(list(message = \"I didn't receive your code. Did you write any?\", ","            correct = FALSE, type = \"error\", location = \"append\"))","    }","    else {","        user_code <- parse(text = user_code)","        if (length(user_code) == 0) {","            return(list(message = \"I didn't receive your code. Did you write any?\", ","                correct = FALSE, type = \"error\", location = \"append\"))","        }","    }","    if (!is.null(solution_code)) {","        solution_code <- parse(text = solution_code)","        if (length(solution_code) == 0) {","            return(list(message = \"No solution is provided for this exercise.\", ","                correct = TRUE, type = \"info\", location = \"append\"))","        }","    }","    had_error_checking <- FALSE","    checked_result <- tryCatch({","        parsed_check_code <- parse(text = check_code)","        if (length(parsed_check_code) > 1) {","            for (i in 1:(length(parsed_check_code) - 1)) {","                eval(parsed_check_code[[i]], envir_prep)","            }","        }","        grading_code <- rlang::call_standardise(parsed_check_code[[length(parsed_check_code)]], ","            envir_prep)","        grader_args <- list(user_quo = rlang::as_quosure(user_code[[length(user_code)]], ","            envir_result))","        if (!is.null(solution_code)) {","            grader_args$solution_quo <- rlang::as_quosure(solution_code[[length(solution_code)]], ","                envir_prep)","        }","        learnr_args <- list(...)","        learnr_args$label <- label","        learnr_args$solution_code <- solution_code","        learnr_args$user_code <- user_code","        learnr_args$check_code <- check_code","        learnr_args$envir_result <- envir_result","        learnr_args$evaluate_result <- evaluate_result","        learnr_args$envir_prep <- envir_prep","        learnr_args$last_value <- last_value","        grading_code$grader_args <- grader_args","        grading_code$learnr_args <- learnr_args","        envir_prep$ans <- grader_args$user","        eval(grading_code, envir_prep)","    }, error = function(e) {","        message(\"\", e)","        had_error_checking <<- TRUE","        graded(correct = FALSE, message = \"Error occured while checking the submission\")","    })","    if (!checkmate::test_class(checked_result, \"grader_graded\")) {","        stop(\"`grade_learnr` should receive a `graded` value from every `-check` chunk\")","    }","    message_type <- if (had_error_checking) {","        \"warning\"","    }","    else {","        if (checked_result$correct) {","            \"success\"","        }","        else {","            \"error\"","        }","    }","    ret <- list(message = checked_result$message, correct = checked_result$correct, ","        type = message_type, location = \"append\")","    ret","}"]}</script>
+<script type="application/json" data-opts-chunk="1">{"fig.width":6.5,"fig.height":4,"fig.retina":2,"fig.align":"default","fig.keep":"high","fig.show":"asis","out.width":624,"warning":true,"error":false,"message":true,"exercise.df_print":"paged","exercise.timelimit":60,"exercise.setup":"chi2setup","exercise.checker":["function (label = NULL, solution_code = NULL, user_code = NULL, ","    check_code = NULL, envir_result = NULL, evaluate_result = NULL, ","    envir_prep = NULL, last_value = NULL, ...) ","{","    if (is.null(user_code)) {","        return(list(message = \"I didn't receive your code. Did you write any?\", ","            correct = FALSE, type = \"error\", location = \"append\"))","    }","    else {","        user_code <- parse(text = user_code)","        if (length(user_code) == 0) {","            return(list(message = \"I didn't receive your code. Did you write any?\", ","                correct = FALSE, type = \"error\", location = \"append\"))","        }","    }","    if (!is.null(solution_code)) {","        solution_code <- parse(text = solution_code)","        if (length(solution_code) == 0) {","            return(list(message = \"No solution is provided for this exercise.\", ","                correct = TRUE, type = \"info\", location = \"append\"))","        }","    }","    had_error_checking <- FALSE","    checked_result <- tryCatch({","        parsed_check_code <- parse(text = check_code)","        if (length(parsed_check_code) > 1) {","            for (i in 1:(length(parsed_check_code) - 1)) {","                eval(parsed_check_code[[i]], envir_prep)","            }","        }","        grading_code <- rlang::call_standardise(parsed_check_code[[length(parsed_check_code)]], ","            envir_prep)","        grader_args <- list(user_quo = rlang::as_quosure(user_code[[length(user_code)]], ","            envir_result))","        if (!is.null(solution_code)) {","            grader_args$solution_quo <- rlang::as_quosure(solution_code[[length(solution_code)]], ","                envir_prep)","        }","        learnr_args <- list(...)","        learnr_args$label <- label","        learnr_args$solution_code <- solution_code","        learnr_args$user_code <- user_code","        learnr_args$check_code <- check_code","        learnr_args$envir_result <- envir_result","        learnr_args$evaluate_result <- evaluate_result","        learnr_args$envir_prep <- envir_prep","        learnr_args$last_value <- last_value","        grading_code$grader_args <- grader_args","        grading_code$learnr_args <- learnr_args","        envir_prep$ans <- grader_args$user","        eval(grading_code, envir_prep)","    }, error = function(e) {","        message(\"\", e)","        had_error_checking <<- TRUE","        graded(correct = FALSE, message = \"Error occured while checking the submission\")","    })","    if (!checkmate::test_class(checked_result, \"grader_graded\")) {","        stop(\"`grade_learnr` should receive a `graded` value from every `-check` chunk\")","    }","    message_type <- if (had_error_checking) {","        \"warning\"","    }","    else {","        if (checked_result$correct) {","            \"success\"","        }","        else {","            \"error\"","        }","    }","    ret <- list(message = checked_result$message, correct = checked_result$correct, ","        type = message_type, location = \"append\")","    ret","}"]}</script>
 </div>
 <div class="tutorial-exercise-support" data-label="expected-hint-1" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
 <pre class="text"><code>&quot;Indice : comment dit-on attendu en anglais ???&quot;</code></pre>
@@ -216,8 +178,8 @@ pchisq(5.3571, df = 3, lower.tail = FALSE)</code></pre>
 <pre class="text"><code>grade_code()</code></pre>
 </div>
 </div>
-<div id="section-test-de-fisher" class="section level2">
-<h2>Test de Fisher</h2>
+<div id="section-test-de-lanova" class="section level2">
+<h2>Test de l’ANOVA</h2>
 <div class="tutorial-exercise-support" data-label="fisher" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
 <pre class="text"><code>x &lt;- c(4,5,7,8,9,2,3,4,6,7,8)
 y &lt;- c(rep(0,5),rep(1,6))
@@ -280,7 +242,7 @@ output$`tutorial-exercise-fisher2-output` <- renderUI({
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
-learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", label = "where-am-i",     question = structure("Pour le test de l&#39;ANOVA :", html = TRUE, class = c("html",     "character")), answers = list(structure(list(id = "lnr_ans_b4112f9",         option = "La variable $X$ est supposée suivre une loi normale",         value = "La variable $X$ est supposée suivre une loi normale",         label = structure("La variable \\(X\\) est supposée suivre une loi normale", html = TRUE, class = c("html",         "character")), correct = FALSE, message = structure("Non, on ne suppose pas la normalité globale de X.", html = TRUE, class = c("html",         "character"))), class = c("tutorial_question_answer",     "tutorial_quiz_answer")), structure(list(id = "lnr_ans_e98237e",         option = "La variable $X$ est supposée suivre une loi normale dans chacune des classes",         value = "La variable $X$ est supposée suivre une loi normale dans chacune des classes",         label = structure("La variable \\(X\\) est supposée suivre une loi normale dans chacune des classes", html = TRUE, class = c("html",         "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer",     "tutorial_quiz_answer")), structure(list(id = "lnr_ans_ce9d184",         option = "Le test suppose l'homogénéité des variances intraclasses",         value = "Le test suppose l'homogénéité des variances intraclasses",         label = structure("Le test suppose l&#39;homogénéité des variances intraclasses", html = TRUE, class = c("html",         "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer",     "tutorial_quiz_answer")), structure(list(id = "lnr_ans_b07d72",         option = "Permet de tester l'égalité des variance intra-classes",         value = "Permet de tester l'égalité des variance intra-classes",         label = structure("Permet de tester l&#39;égalité des variance intra-classes", html = TRUE, class = c("html",         "character")), correct = FALSE, message = structure("Cela fait partie des hypothèses du test, par contre le test de Bartlett permet de tester cela.", html = TRUE, class = c("html",         "character"))), class = c("tutorial_question_answer",     "tutorial_quiz_answer")), structure(list(id = "lnr_ans_512c942",         option = "Permet de tester l'égalité des espérances conditionnelles",         value = "Permet de tester l'égalité des espérances conditionnelles",         label = structure("Permet de tester l&#39;égalité des espérances conditionnelles", html = TRUE, class = c("html",         "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer",     "tutorial_quiz_answer")), structure(list(id = "lnr_ans_120beb5",         option = "Permet de tester l'égalité des moyennes conditionnelles",         value = "Permet de tester l'égalité des moyennes conditionnelles",         label = structure("Permet de tester l&#39;égalité des moyennes conditionnelles", html = TRUE, class = c("html",         "character")), correct = FALSE, message = structure("Le test porte sur les quantités <strong>non observée<\u002fstrong> qui sont les espérances conditionnelles. En pratique les moyennes conditionnelles sont rarement égales ...", html = TRUE, class = c("html",         "character"))), class = c("tutorial_question_answer",     "tutorial_quiz_answer"))), button_labels = list(submit = structure("Submit Answer", html = TRUE, class = c("html",     "character")), try_again = structure("Try Again", html = TRUE, class = c("html",     "character"))), messages = list(correct = structure("Correct!", html = TRUE, class = c("html",     "character")), try_again = structure("Incorrect", html = TRUE, class = c("html",     "character")), incorrect = structure("Incorrect", html = TRUE, class = c("html",     "character")), message = NULL, post_message = NULL), ids = list(        answer = "where-am-i-answer", question = "where-am-i"),     loading = structure("<strong>Loading:<\u002fstrong> \nPour le test de l&#39;ANOVA :\n<br/><br/><br/>", html = TRUE, class = c("html",     "character")), random_answer_order = FALSE, allow_retry = FALSE,     seed = 116184173.945898, options = list()), class = c("learnr_checkbox", "tutorial_question")))
+learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", label = "where-am-i",     question = structure("Pour le test de l&#39;ANOVA :", html = TRUE, class = c("html",     "character")), answers = list(structure(list(id = "lnr_ans_ea99314",         option = "La variable $X$ est supposée suivre une loi normale",         value = "La variable $X$ est supposée suivre une loi normale",         label = structure("La variable \\(X\\) est supposée suivre une loi normale", html = TRUE, class = c("html",         "character")), correct = FALSE, message = structure("Non, on ne suppose pas la normalité globale de X.", html = TRUE, class = c("html",         "character"))), class = c("tutorial_question_answer",     "tutorial_quiz_answer")), structure(list(id = "lnr_ans_52da91",         option = "La variable $X$ est supposée suivre une loi normale dans chacune des classes",         value = "La variable $X$ est supposée suivre une loi normale dans chacune des classes",         label = structure("La variable \\(X\\) est supposée suivre une loi normale dans chacune des classes", html = TRUE, class = c("html",         "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer",     "tutorial_quiz_answer")), structure(list(id = "lnr_ans_460dac3",         option = "Le test suppose l'homogénéité des variances intraclasses",         value = "Le test suppose l'homogénéité des variances intraclasses",         label = structure("Le test suppose l&#39;homogénéité des variances intraclasses", html = TRUE, class = c("html",         "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer",     "tutorial_quiz_answer")), structure(list(id = "lnr_ans_42dcec1",         option = "Permet de tester l'égalité des variance intra-classes",         value = "Permet de tester l'égalité des variance intra-classes",         label = structure("Permet de tester l&#39;égalité des variance intra-classes", html = TRUE, class = c("html",         "character")), correct = FALSE, message = structure("Cela fait partie des hypothèses du test, par contre le test de Bartlett permet de tester cela.", html = TRUE, class = c("html",         "character"))), class = c("tutorial_question_answer",     "tutorial_quiz_answer")), structure(list(id = "lnr_ans_902c95e",         option = "Permet de tester l'égalité des espérances conditionnelles",         value = "Permet de tester l'égalité des espérances conditionnelles",         label = structure("Permet de tester l&#39;égalité des espérances conditionnelles", html = TRUE, class = c("html",         "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer",     "tutorial_quiz_answer")), structure(list(id = "lnr_ans_f0f9a9a",         option = "Permet de tester l'égalité des moyennes conditionnelles",         value = "Permet de tester l'égalité des moyennes conditionnelles",         label = structure("Permet de tester l&#39;égalité des moyennes conditionnelles", html = TRUE, class = c("html",         "character")), correct = FALSE, message = structure("Le test porte sur les quantités <strong>non observée<\u002fstrong> qui sont les espérances conditionnelles. En pratique les moyennes conditionnelles sont rarement égales ...", html = TRUE, class = c("html",         "character"))), class = c("tutorial_question_answer",     "tutorial_quiz_answer"))), button_labels = list(submit = structure("Submit Answer", html = TRUE, class = c("html",     "character")), try_again = structure("Try Again", html = TRUE, class = c("html",     "character"))), messages = list(correct = structure("Correct!", html = TRUE, class = c("html",     "character")), try_again = structure("Incorrect", html = TRUE, class = c("html",     "character")), incorrect = structure("Incorrect", html = TRUE, class = c("html",     "character")), message = NULL, post_message = NULL), ids = list(        answer = "where-am-i-answer", question = "where-am-i"),     loading = structure("<strong>Loading:<\u002fstrong> \nPour le test de l&#39;ANOVA :\n<br/><br/><br/>", html = TRUE, class = c("html",     "character")), random_answer_order = FALSE, allow_retry = FALSE,     seed = 551840227.243029, options = list()), class = c("learnr_checkbox", "tutorial_question")))
 </script>
  <!--html_preserve-->
 <script type="application/shiny-prerendered" data-context="dependencies">
